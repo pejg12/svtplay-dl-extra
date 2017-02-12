@@ -29,14 +29,24 @@ mkdir -p "$1" && cd "$1" && ../scrape.py "$1" |
         # -o is the chosen output filename
         svtplay-dl -S -q 1050 -Q 200 --stream-priority=dash,hds,hls,http,rtmp -o "$CURRENT" http://svtplay.se"$ROW"
 
-        # < /dev/null is necessary so that ffmpeg doesn't try to use the output from previous commands
-        # -n assumes "no" on "Do you want to overwrite existing file?"
-        # -i is input file
-        # -hide_banner hides version information
-        < /dev/null ffmpeg -n -i "$CURRENT".ts "$CURRENT".mp4 -hide_banner
+        # if *.flv or *.ts exists and is a regular file
+        EXT=""
+        if [ -f "$CURRENT".flv ]; then
+            EXT=".flv"
+        elif [ -f "$CURRENT".ts ]; then
+            EXT=".ts"
+        fi
+        # Convert video to .mp4
+        if [ "$EXT" ]; then
+            # < /dev/null is necessary so that ffmpeg doesn't try to use the output from previous commands
+            # -n assumes "no" on "Do you want to overwrite existing file?"
+            # -i is input file
+            # -hide_banner hides version information
+            < /dev/null ffmpeg -n -i "$CURRENT$EXT" "$CURRENT".mp4 -hide_banner
 
-        # Remove the ts file after the conversion to save space
-        rm "$CURRENT".ts
+            # Remove the ts file after the conversion to save space
+            rm "$CURRENT$EXT"
+        fi
 
         # Copy files to remote server
         # -a archive, keep permissions
