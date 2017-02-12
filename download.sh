@@ -49,8 +49,11 @@ mkdir -p "$1" && cd "$1" && ../scrape.py "$1" |
         fi
 
         # Copy files to remote server
+        # replace <username>, <server> and </path/to/videos/> with appropriate values
+        # set up ssh keys unless you want the script to wait for your password for every episode; see ssh-keygen and ssh-copy-id
+        # -n pretend
         # -a archive, keep permissions
         # --progress show progress bar
-        #rsync -a --progress "$CURRENT".* username@server:"/path/to/remote/videos/"
+        #rsync -a --progress "$CURRENT".* <username>@<server>:"</path/to/videos/>"
     done
 
