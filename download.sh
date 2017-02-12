@@ -20,8 +20,14 @@ mkdir -p "$1" && cd "$1" && ../scrape.py "$1" |
 
         # -S means to download the subtitles
         # -q 800 -Q 200 means to download a bitrate between 600-1000 (medium quality)
+        # --stream-priority
+        #    dash=mp4 (smallest file size, no conversion necessary)
+        #     hds=flv (smaller file size)
+        #     hls=ts  (large file size)
+        #    http=?
+        #    rtmp=?
         # -o is the chosen output filename
-        svtplay-dl -S -q 800 -Q 200 -o "$CURRENT" http://svtplay.se"$ROW"
+        svtplay-dl -S -q 1050 -Q 200 --stream-priority=dash,hds,hls,http,rtmp -o "$CURRENT" http://svtplay.se"$ROW"
 
         # < /dev/null is necessary so that ffmpeg doesn't try to use the output from previous commands
         # -n assumes "no" on "Do you want to overwrite existing file?"
