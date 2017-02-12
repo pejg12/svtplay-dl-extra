@@ -36,5 +36,10 @@ mkdir -p "$1" && cd "$1" && ../scrape.py "$1" |
 
         # Remove the ts file after the conversion to save space
         rm "$CURRENT".ts
+
+        # Copy files to remote server
+        # -a archive, keep permissions
+        # --progress show progress bar
+        #rsync -a --progress "$CURRENT".* username@server:"/path/to/remote/videos/"
     done
 
