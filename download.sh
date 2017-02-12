@@ -32,7 +32,8 @@ mkdir -p "$1" && cd "$1" && ../scrape.py "$1" |
         # < /dev/null is necessary so that ffmpeg doesn't try to use the output from previous commands
         # -n assumes "no" on "Do you want to overwrite existing file?"
         # -i is input file
-        < /dev/null ffmpeg -n -i "$CURRENT".ts "$CURRENT".mp4
+        # -hide_banner hides version information
+        < /dev/null ffmpeg -n -i "$CURRENT".ts "$CURRENT".mp4 -hide_banner
 
         # Remove the ts file after the conversion to save space
         rm "$CURRENT".ts
