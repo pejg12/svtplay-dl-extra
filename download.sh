@@ -10,7 +10,7 @@
 # -p means to not complain if the directory already exists
 # Enter this series' directory
 # Scrape svtplay.se to find all available episodes
-mkdir -p "$1" && cd "$1" && ../scrape.py "$1" |
+mkdir -p "video/$1" && cd "video/$1" && ../../scrape.py "$1" |
 
 # Loop once for each episode found
     while read ROW
