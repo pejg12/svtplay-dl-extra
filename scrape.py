@@ -51,7 +51,7 @@ for url in urls:
 
                         # Traverse through the JSON object to find the relevant data
                         a = jsobject
-                        b = a["videoTitlePage"]
+                        b = a["relatedVideoContent"]
                         c = b["relatedVideosTabs"]
 
                         # In the list of related videos, choose the subset "senast sänt"
