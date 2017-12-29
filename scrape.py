@@ -52,18 +52,18 @@ for url in urls:
                         # Traverse through the JSON object to find the relevant data
                         a = jsobject
                         b = a["relatedVideoContent"]
-                        c = b["relatedVideosTabs"]
+                        c = b["relatedVideosAccordion"]
 
                         # In the list of related videos, choose the subset "senast sänt"
                         for c2 in c:
-                                if "senaste" in c2["slug"]:
+                                if "RELATED_VIDEOS_ACCORDION_SEASON" in c2["type"]:
                                         #print("Found the latest.")
                                         d = c2["videos"]
 
                         # In the subset of related videos, find a direct url for each video
                         videos = []
                         for d2 in d:
-                                video = d2["contentUrl"]
+                                video = d2["versions"][0]["contentUrl"]
 
                                 # Trim
                                 if video.find("?") >= 0:
@@ -79,4 +79,3 @@ for url in urls:
                 newfile.truncate()
                 videostr = "\n".join(videos)
                 newfile.write(videostr)
-
